@@ -169,7 +169,6 @@
             </div>
             <!-- /.container-fluid -->
             <footer class="footer text-center"> 2018 &copy; myclass.com </footer>
-            <span></span>
         </div>
         <!-- /#page-wrapper -->
     </div>

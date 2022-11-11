@@ -1,6 +1,8 @@
 package com.cybersoft.crm.repository;
 
 import com.cybersoft.crm.config.MysqlConnection;
+import com.cybersoft.crm.entity.UserEntity;
+import com.cybersoft.crm.model.RoleModel;
 import com.cybersoft.crm.model.UserModel;
 
 import java.sql.Connection;
@@ -89,4 +91,73 @@ public class UserRepository {
         return result;
     }
 
+    public int insertUser(UserEntity user) {
+        int result = 0;
+        try {
+            Connection connection = MysqlConnection.getConnection();
+            String query = "insert into users (firstname, lastname, email, password, role_id)\n" +
+                    "values (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setInt(5, user.getRoleId());
+            result = preparedStatement.executeUpdate();
+
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Error insert user " + e.getMessage());
+        }
+        return result;
+    }
+
+    public int updateUser(UserEntity user) {
+        int result = 0;
+        try {
+            Connection connection = MysqlConnection.getConnection();
+            String query = "update users set email=?, password=?, role_id=?, firstname=?, lastname=? where id=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setInt(3, user.getRoleId());
+            preparedStatement.setString(4, user.getFirstName());
+            preparedStatement.setString(5, user.getLastName());
+            preparedStatement.setInt(6, user.getId());
+            result = preparedStatement.executeUpdate();
+
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Error update user " + e.getMessage());
+        }
+        return result;
+    }
+
+    public UserEntity findUserById(int id) {
+        UserEntity user = new UserEntity();
+        try{
+            String query = "select * from users where id = ?";
+            Connection connection = MysqlConnection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()){
+                user.setId(resultSet.getInt("id"));
+                user.setFirstName(resultSet.getString("firstname"));
+                user.setLastName(resultSet.getString("lastname"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRoleId(resultSet.getInt("role_id"));
+            }
+
+            connection.close();
+
+        }catch (Exception e){
+            System.out.println("Error findUserById " + e.getMessage());
+        }
+
+        return user;
+    }
 }

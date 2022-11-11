@@ -1,9 +1,17 @@
 $(document).ready(function () {
     $(".btn-add").click(function () {
-        alert("Add user")
+        window.location.href = 'http://localhost:8082/crm/user-add'
     })
     $(".btn-update").click(function () {
-        alert("Update user")
+        var id = $(this).attr("userId")
+
+        $.ajax({
+            method: "post",
+            url: "http://localhost:8082/crm/user-update",
+            data: {id: id },
+        }) .done(function( data ) {
+            window.location.href = 'http://localhost:8082/crm/user-update'
+        });
     })
 
     $(".btn-delete").click(function () {

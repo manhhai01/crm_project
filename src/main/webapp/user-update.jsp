@@ -124,7 +124,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Thêm mới thành viên</h4>
+                        <h4 class="page-title">Cập nhật thành viên</h4>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -137,26 +137,26 @@
                                 <div class="form-group">
                                     <label class="col-md-12">First Name</label>
                                     <div class="col-md-12">
-                                        <input type="text" id="firstname" placeholder="Johnathan"
+                                        <input type="text" id="firstname" value="${user.getFirstName()}" placeholder="Johnathan"
                                             class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Last Name</label>
                                     <div class="col-md-12">
-                                        <input type="text" id="lastname" placeholder="Doe"
+                                        <input type="text" id="lastname" value="${user.getLastName()}" placeholder="Doe"
                                                class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">Email</label>
                                     <div class="col-md-12">
-                                        <input type="email" id="email" placeholder="johnathan@admin.com"
+                                        <input type="email" id="email" value="${user.getEmail()}" placeholder="johnathan@admin.com"
                                             class="form-control form-control-line" name="example-email"
                                             id="example-email"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Password</label>
                                     <div class="col-md-12">
-                                        <input type="password" id="password" value="123456" class="form-control form-control-line">
+                                        <input type="password" id="password" value="${user.getPassword()}" class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -164,16 +164,21 @@
                                     <div class="col-sm-12">
                                         <select class="form-control form-control-line" id="roleId">
                                             <c:forEach items="${roles}" var="role" varStatus="loop">
-                                                <option value="${role.getId()}">${role.getName()}</option>
+                                                <c:choose>
+                                                    <c:when test="${user.getRoleId() == role.getId()}">
+                                                        <option selected value="${role.getId()}">${role.getName()}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${role.getId()}">${role.getName()}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:forEach>
                                         </select>
                                     </div>
-
-
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-success btn-add">Add User</a>
+                                        <a userId="${user.getId()}" class="btn btn-success btn-update">Update User</a>
                                         <a href="#" class="btn btn-primary btn-return">Quay lại</a>
                                     </div>
                                 </div>
@@ -202,7 +207,7 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
-    <script src="js/user-add.js"></script>
+    <script src="js/user-update.js"></script>
 </body>
 
 </html>
