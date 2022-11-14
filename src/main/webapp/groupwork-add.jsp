@@ -105,7 +105,7 @@
                     </li>
                     <li>
                         <a href="task.html" class="waves-effect"><i class="fa fa-table fa-fw"
-                                aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
+                                aria-hidden="true"></i><span class="hide-menu">Dự án</span></a>
                     </li>
                     <li>
                         <a href="blank.html" class="waves-effect"><i class="fa fa-columns fa-fw"
@@ -124,7 +124,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Cập nhật thành viên</h4>
+                        <h4 class="page-title">Thêm mới dự án</h4>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -135,50 +135,26 @@
                         <div class="white-box">
                             <form class="form-horizontal form-material">
                                 <div class="form-group">
-                                    <label class="col-md-12">First Name</label>
+                                    <label class="col-md-12">Tên dự án</label>
                                     <div class="col-md-12">
-                                        <input type="text" id="firstname" value="${user.getFirstName()}" placeholder="Johnathan"
+                                        <input type="text" id="name" placeholder="Tên công việc"
                                             class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Last Name</label>
+                                    <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
-                                        <input type="text" id="lastname" value="${user.getLastName()}" placeholder="Doe"
-                                               class="form-control form-control-line"> </div>
+                                        <input type="text" id="startDate" placeholder="dd/MM/yyyy"
+                                            class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="example-email" class="col-md-12">Email</label>
+                                    <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
-                                        <input type="email" id="email" value="${user.getEmail()}" placeholder="johnathan@admin.com"
-                                            class="form-control form-control-line" name="example-email"
-                                            id="example-email"> </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Password</label>
-                                    <div class="col-md-12">
-                                        <input type="password" id="password" value="${user.getPassword()}" class="form-control form-control-line">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-12">Select Role</label>
-                                    <div class="col-sm-12">
-                                        <select class="form-control form-control-line" id="roleId">
-                                            <c:forEach items="${roles}" var="role" varStatus="loop">
-                                                <c:choose>
-                                                    <c:when test="${user.getRoleId() == role.getId()}">
-                                                        <option selected value="${role.getId()}">${role.getName()}</option>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <option value="${role.getId()}">${role.getName()}</option>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
+                                        <input type="text" id="endDate" placeholder="dd/MM/yyyy"
+                                            class="form-control form-control-line"> </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <a userId="${user.getId()}" class="btn btn-success btn-update">Update User</a>
+                                        <a class="btn btn-success btn-add">Lưu lại</a>
                                         <a href="#" class="btn btn-primary btn-return">Quay lại</a>
                                     </div>
                                 </div>
@@ -207,7 +183,7 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
-    <script src="js/user-update.js"></script>
+    <script src="js/groupwork-add.js"></script>
 </body>
 
 </html>

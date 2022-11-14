@@ -17,8 +17,8 @@ public class TaskRepository {
         try {
             Connection connection = MysqlConnection.getConnection();
             String query = "select * from tasks";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet rs = preparedStatement.executeQuery();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
                 TaskModel task = new TaskModel();

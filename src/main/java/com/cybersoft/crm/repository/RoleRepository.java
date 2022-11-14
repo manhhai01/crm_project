@@ -18,8 +18,8 @@ public class RoleRepository {
         try {
             Connection connection = MysqlConnection.getConnection();
             String query = "select * from roles";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet rs = preparedStatement.executeQuery();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
                 RoleModel role = new RoleModel();
@@ -42,9 +42,9 @@ public class RoleRepository {
         try {
             Connection connection = MysqlConnection.getConnection();
             String query = "delete from roles r where r.id = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            result = preparedStatement.executeUpdate();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            result = ps.executeUpdate();
 
             connection.close();
         } catch (SQLException e) {
@@ -58,10 +58,10 @@ public class RoleRepository {
         try {
             Connection connection = MysqlConnection.getConnection();
             String query = "INSERT INTO roles( name, description ) VALUES (?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, description);
-            result = preparedStatement.executeUpdate();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, name);
+            ps.setString(2, description);
+            result = ps.executeUpdate();
 
             connection.close();
         } catch (SQLException e) {
@@ -75,11 +75,11 @@ public class RoleRepository {
         try {
             Connection connection = MysqlConnection.getConnection();
             String query = "update roles set name = ?, description = ? where id = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, role.getName());
-            preparedStatement.setString(2, role.getDescription());
-            preparedStatement.setInt(3, role.getId());
-            result = preparedStatement.executeUpdate();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, role.getName());
+            ps.setString(2, role.getDescription());
+            ps.setInt(3, role.getId());
+            result = ps.executeUpdate();
 
             connection.close();
         } catch (SQLException e) {

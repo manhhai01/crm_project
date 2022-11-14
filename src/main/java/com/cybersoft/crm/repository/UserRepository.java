@@ -2,7 +2,6 @@ package com.cybersoft.crm.repository;
 
 import com.cybersoft.crm.config.MysqlConnection;
 import com.cybersoft.crm.entity.UserEntity;
-import com.cybersoft.crm.model.RoleModel;
 import com.cybersoft.crm.model.UserModel;
 
 import java.sql.Connection;
@@ -20,19 +19,19 @@ public class UserRepository {
         try{
             String query = "select * from users u where u.email = ? and u.password = ?";
             Connection connection = MysqlConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1,email);
-            preparedStatement.setString(2,password);
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1,email);
+            ps.setString(2,password);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-            while(resultSet.next()){
+            while(rs.next()){
                 UserModel user = new UserModel();
-                user.setId(resultSet.getInt("id"));
-                user.setEmail(resultSet.getString("email"));
-                user.setFirstName(resultSet.getString("firstname"));
-                user.setLastName(resultSet.getString("lastname"));
-                user.setRoleName(resultSet.getString("name"));
+                user.setId(rs.getInt("id"));
+                user.setEmail(rs.getString("email"));
+                user.setFirstName(rs.getString("firstname"));
+                user.setLastName(rs.getString("lastname"));
+                user.setRoleName(rs.getString("name"));
 
                 users.add(user);
             }
@@ -54,8 +53,8 @@ public class UserRepository {
                     "FROM users u\n" +
                     "INNER JOIN roles r\n" +
                     "ON u.role_id=r.id;";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet rs = preparedStatement.executeQuery();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
                 UserModel user = new UserModel();
@@ -80,9 +79,9 @@ public class UserRepository {
         try {
             Connection connection = MysqlConnection.getConnection();
             String query = "delete from users u where u.id = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            result = preparedStatement.executeUpdate();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            result = ps.executeUpdate();
 
             connection.close();
         } catch (SQLException e) {
@@ -97,13 +96,13 @@ public class UserRepository {
             Connection connection = MysqlConnection.getConnection();
             String query = "insert into users (firstname, lastname, email, password, role_id)\n" +
                     "values (?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getPassword());
-            preparedStatement.setInt(5, user.getRoleId());
-            result = preparedStatement.executeUpdate();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getPassword());
+            ps.setInt(5, user.getRoleId());
+            result = ps.executeUpdate();
 
             connection.close();
         } catch (SQLException e) {
@@ -117,14 +116,14 @@ public class UserRepository {
         try {
             Connection connection = MysqlConnection.getConnection();
             String query = "update users set email=?, password=?, role_id=?, firstname=?, lastname=? where id=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, user.getEmail());
-            preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setInt(3, user.getRoleId());
-            preparedStatement.setString(4, user.getFirstName());
-            preparedStatement.setString(5, user.getLastName());
-            preparedStatement.setInt(6, user.getId());
-            result = preparedStatement.executeUpdate();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getPassword());
+            ps.setInt(3, user.getRoleId());
+            ps.setString(4, user.getFirstName());
+            ps.setString(5, user.getLastName());
+            ps.setInt(6, user.getId());
+            result = ps.executeUpdate();
 
             connection.close();
         } catch (SQLException e) {
@@ -138,18 +137,18 @@ public class UserRepository {
         try{
             String query = "select * from users where id = ?";
             Connection connection = MysqlConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1,id);
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1,id);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-            while(resultSet.next()){
-                user.setId(resultSet.getInt("id"));
-                user.setFirstName(resultSet.getString("firstname"));
-                user.setLastName(resultSet.getString("lastname"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setRoleId(resultSet.getInt("role_id"));
+            while(rs.next()){
+                user.setId(rs.getInt("id"));
+                user.setFirstName(rs.getString("firstname"));
+                user.setLastName(rs.getString("lastname"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setRoleId(rs.getInt("role_id"));
             }
 
             connection.close();

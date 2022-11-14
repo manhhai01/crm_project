@@ -19,7 +19,7 @@ $(document).ready(function () {
             if(data.success){
                 alert("Thêm thành công")
             }else{
-                alert("Xoá thất bại")
+                alert("Thêm thất bại")
             }
             window.location.href = 'http://localhost:8082/crm/user'
         });
