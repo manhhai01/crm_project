@@ -1,3 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -123,7 +126,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Thêm mới công việc</h4>
+                        <h4 class="page-title">Cập nhật công việc</h4>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -134,43 +137,81 @@
                         <div class="white-box">
                             <form class="form-horizontal form-material">
                                 <div class="form-group">
-                                    <label class="col-md-12">Tên dự án</label>
+                                    <label class="col-md-12">Dự án</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="Dự án CRM" class="form-control form-control-line">
+                                        <select class="form-control form-control-line" id="jobId">
+                                            <c:forEach items="${jobs}" var="job">
+                                                <c:choose>
+                                                    <c:when test="${task.getJobId() == job.getId()}">
+                                                        <option selected value="${job.getId()}">${job.getName()}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${job.getId()}">${job.getName()}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Tên công việc</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="Thiết kế database" class="form-control form-control-line">
+                                        <input type="text" value="${task.getName()}" id="name" placeholder="Tên công việc"
+                                            class="form-control form-control-line">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Người thực hiện</label>
+                                    <div class="col-md-12">
+                                        <select class="form-control form-control-line" id="userId">
+                                            <c:forEach items="${users}" var="user">
+                                                <c:choose>
+                                                    <c:when test="${task.getUserId() == user.getId()}">
+                                                        <option selected value="${user.getId()}">${user.getFirstName()} ${user.getLastName()}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${user.getId()}">${user.getFirstName()} ${user.getLastName()}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="05-07/2020" class="form-control form-control-line"> 
+                                        <input type="text" value="${task.getStartDate()}" id="startDate" placeholder="dd/MM/yyyy"
+                                            class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="17-07/2020" class="form-control form-control-line"> 
+                                        <input type="text" value="${task.getEndDate()}" id="endDate" placeholder="dd/MM/yyyy"
+                                            class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Trạng thái</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
-                                            <option>Chưa thực hiện</option>
-                                            <option selected>Đang thực hiện</option>
-                                            <option>Đã hoàn thành</option>
+                                        <select class="form-control form-control-line" id="statusId">
+                                            <c:forEach items="${statuses}" var="status">
+                                                <c:choose>
+                                                    <c:when test="${task.getStatusId() == status.getId()}">
+                                                        <option selected value="${status.getId()}">${status.getName()}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${status.getId()}">${status.getName()}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button type="submit" class="btn btn-success">Lưu lại</button>
-                                        <a href="profile.html" class="btn btn-primary">Quay lại</a>
+                                        <a taskId="${task.getId()}" class="btn btn-success btn-update">Lưu lại</a>
+                                        <a href="#" class="btn btn-primary btn-return">Quay lại</a>
                                     </div>
                                 </div>
                             </form>
@@ -198,6 +239,7 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    <script src="js/task-update.js"></script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@ $(document).ready(function () {
         var password = $("#password").val()
         var roleId = $("#roleId option:selected").val()
 
-        if(firstname == "" || lastname == "" || email == "" || password == "" || roleId == -1) {
+        if(firstname == "" || lastname == "" || email == "" || password == "") {
             alert("Vui lòng nhập đầy đủ thông tin")
             return;
         }

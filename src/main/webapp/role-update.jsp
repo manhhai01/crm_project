@@ -104,8 +104,8 @@
                                                                         aria-hidden="true"></i><span class="hide-menu">Dự án</span></a>
                     </li>
                     <li>
-                        <a href="task.html" class="waves-effect"><i class="fa fa-table fa-fw"
-                                aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
+                        <a href="task.jsp" class="waves-effect"><i class="fa fa-table fa-fw"
+                                                                   aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
                     </li>
                     <li>
                         <a href="blank.html" class="waves-effect"><i class="fa fa-columns fa-fw"
