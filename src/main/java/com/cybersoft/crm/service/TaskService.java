@@ -55,4 +55,13 @@ public class TaskService {
         }
     }
 
+    public List<TaskEntity> findTasksByUserId(int userId) {
+        List<TaskEntity> tasks = taskRepository.findTaskByUserId(userId);
+        for (TaskEntity task: tasks) {
+            task.setStartDate(dateHelper.changeFormatDate(task.getEndDate(), "/"));
+            task.setEndDate(dateHelper.changeFormatDate(task.getEndDate(), "/"));
+        }
+        return tasks;
+    }
+
 }

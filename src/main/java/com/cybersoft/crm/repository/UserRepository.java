@@ -31,7 +31,6 @@ public class UserRepository {
                 user.setEmail(rs.getString("email"));
                 user.setFirstName(rs.getString("firstname"));
                 user.setLastName(rs.getString("lastname"));
-                user.setRoleName(rs.getString("name"));
 
                 users.add(user);
             }

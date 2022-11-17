@@ -29,4 +29,15 @@ $(document).ready(function () {
             }
         });
     })
+
+    $(".btn-detail").click(function () {
+        var id = $(this).attr("userId")
+
+        $.ajax({
+            method: "get",
+            url: "http://localhost:8082/crm/user-detail?id=" + id,
+        }) .done(function( data ) {
+            window.location.href = 'http://localhost:8082/crm/user-detail?id=' + id;
+        });
+    })
 })

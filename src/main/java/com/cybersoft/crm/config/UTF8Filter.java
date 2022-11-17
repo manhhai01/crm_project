@@ -10,17 +10,16 @@ import java.io.IOException;
 public class UTF8Filter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("Init filter");
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        if(request.getCharacterEncoding() == null)
+        if(req.getCharacterEncoding() == null)
             request.setCharacterEncoding("UTF-8");
         chain.doFilter(request, response);
-        if(response.getCharacterEncoding() == null)
+        if(resp.getCharacterEncoding() == null)
             response.setCharacterEncoding("UTF-8");
     }
 }

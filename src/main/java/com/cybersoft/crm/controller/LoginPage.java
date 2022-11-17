@@ -14,20 +14,26 @@ public class LoginPage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/login.html").forward(req,resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
         boolean isLogin = loginService.checkLogin(email,password);
+        System.out.println("Kiem tra " + isLogin);
 
         if(isLogin){
             HttpSession session = req.getSession();
             session.setAttribute("isLogin",true);
-            session.setMaxInactiveInterval(8 * 60);
+            session.setMaxInactiveInterval(5 * 60);
+            resp.sendRedirect(req.getContextPath() + "/home");
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/login");
         }
 
-        System.out.println("Kiem tra " + isLogin);
-
-        req.getRequestDispatcher("/login.html").forward(req,resp);
     }
 }

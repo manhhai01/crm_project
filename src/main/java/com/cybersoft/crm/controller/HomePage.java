@@ -7,11 +7,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "homePage",urlPatterns = {"/home"})
+@WebServlet(name = "homePage",urlPatterns = {"/home", "/blank", "/error"})
 public class HomePage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/index.html").forward(req,resp);
+        String action = req.getServletPath();
+        switch (action) {
+            case "/home":
+                req.getRequestDispatcher("/index.html").forward(req,resp);
+                break;
+            case "/blank":
+                req.getRequestDispatcher("/blank.html").forward(req,resp);
+                break;
+            case "/error":
+                req.getRequestDispatcher("/404.html").forward(req,resp);
+                break;
+        }
     }
 }

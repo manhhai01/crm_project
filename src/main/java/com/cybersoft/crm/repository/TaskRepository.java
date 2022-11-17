@@ -131,4 +131,36 @@ public class TaskRepository {
         }
         return result;
     }
+
+    public List<TaskEntity> findTaskByUserId(int userId) {
+        List<TaskEntity> tasks = new ArrayList<>();
+        try{
+            String query = "select * from tasks where user_id = ?";
+            Connection connection = MysqlConnection.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, userId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                TaskEntity task = new TaskEntity();
+                task.setId(rs.getInt("id"));
+                task.setName(rs.getString("name"));
+                task.setStartDate(rs.getString("start_date"));
+                task.setEndDate(rs.getString("end_date"));
+                task.setUserId(rs.getInt("user_id"));
+                task.setJobId(rs.getInt("job_id"));
+                task.setStatusId(rs.getInt("status_id"));
+
+                tasks.add(task);
+            }
+
+            connection.close();
+
+        }catch (Exception e){
+            System.out.println("Error findTaskByUserId " + e.getMessage());
+        }
+
+        return tasks;
+    }
 }
