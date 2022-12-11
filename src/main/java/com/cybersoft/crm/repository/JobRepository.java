@@ -2,6 +2,11 @@ package com.cybersoft.crm.repository;
 
 import com.cybersoft.crm.config.MysqlConnection;
 import com.cybersoft.crm.entity.JobEntity;
+import com.cybersoft.crm.entity.TaskEntity;
+import com.cybersoft.crm.entity.UserEntity;
+import com.cybersoft.crm.model.JobDetailsModel;
+import com.cybersoft.crm.model.UserModel;
+import com.cybersoft.crm.service.TaskService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,6 +33,7 @@ public class JobRepository {
                 job.setEndDate(rs.getString("end_date"));
                 jobs.add(job);
             }
+
 
             connection.close();
         } catch (SQLException e) {
@@ -114,4 +120,61 @@ public class JobRepository {
         }
         return result;
     }
+
+    public List<UserEntity> getUserByJobId(int jobId) {
+        List<UserEntity> users = new ArrayList<>();
+        try {
+            Connection connection = MysqlConnection.getConnection();
+            String query = "select distinct user_id, firstname, lastname\n" +
+                    "from users u inner join tasks t\n" +
+                    "on u.id = t.user_id and t.job_id = ?;";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, jobId);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                UserEntity user = new UserEntity();
+                user.setId(rs.getInt("user_id"));
+                user.setFirstName(rs.getString("firstname"));
+                user.setLastName(rs.getString("lastname"));
+                users.add(user);
+            }
+
+
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Error get users by jobId " + e.getMessage());
+        }
+        return users;
+    }
+
+    public List<TaskEntity> getTaskByJobIdAndUserId(int jobId, int userId) {
+        List<TaskEntity> tasks = new ArrayList<>();
+        try {
+            Connection connection = MysqlConnection.getConnection();
+            String query = "select * from tasks t\n" +
+                    "where t.user_id = ? and t.job_id = ?;";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, userId);
+            ps.setInt(2, jobId);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                TaskEntity task = new TaskEntity();
+                task.setId(rs.getInt("id"));
+                task.setName(rs.getString("name"));
+                task.setStartDate(rs.getString("start_date"));
+                task.setEndDate(rs.getString("end_date"));
+                task.setStatusId(rs.getInt("status_id"));
+                tasks.add(task);
+            }
+
+
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Error get tasks by jobId and userId " + e.getMessage());
+        }
+        return tasks;
+    }
+
 }

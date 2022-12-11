@@ -1,9 +1,13 @@
 package com.cybersoft.crm.service;
 
 import com.cybersoft.crm.entity.JobEntity;
+import com.cybersoft.crm.entity.TaskEntity;
+import com.cybersoft.crm.entity.UserEntity;
+import com.cybersoft.crm.model.JobDetailsModel;
 import com.cybersoft.crm.repository.JobRepository;
 import com.cybersoft.crm.utils.DateHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JobService {
@@ -51,5 +55,21 @@ public class JobService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public List<JobDetailsModel> getDetailsByJobId(int jobId) {
+        List<JobDetailsModel> jobDetails = new ArrayList<>();
+
+        List<UserEntity> users = jobRepository.getUserByJobId(jobId);
+        for (UserEntity user: users) {
+            JobDetailsModel jobDetail = new JobDetailsModel();
+            jobDetail.setIdUser(user.getId());
+            jobDetail.setUserName(user.getFirstName() + " " + user.getLastName());
+            List<TaskEntity> tasks = jobRepository.getTaskByJobIdAndUserId(jobId, user.getId());
+            jobDetail.setTaskEntities(tasks);
+
+            jobDetails.add(jobDetail);
+        }
+        return jobDetails;
     }
 }

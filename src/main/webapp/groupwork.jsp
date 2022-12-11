@@ -158,7 +158,7 @@
                                                 <td>
                                                     <a href="#" jobId="${job.getId()}" class="btn btn-sm btn-primary btn-update">Sửa</a>
                                                     <a href="#" jobId="${job.getId()}" class="btn btn-sm btn-danger btn-delete">Xóa</a>
-                                                    <a href="groupwork-details.html" class="btn btn-sm btn-info">Xem</a>
+                                                    <a href="#" jobId="${job.getId()}" class="btn btn-sm btn-info btn-details">Xem</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>

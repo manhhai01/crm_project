@@ -19,6 +19,11 @@ $(document).ready(function () {
         window.location.href = 'http://localhost:8082/crm/groupwork-add';
     })
 
+    $(".btn-details").click(function () {
+        var id = $(this).attr("jobId")
+        window.location.href = 'http://localhost:8082/crm/groupwork-details?id=' + id;
+    })
+
     $(".btn-update").click(function () {
         var id = $(this).attr("jobId")
 

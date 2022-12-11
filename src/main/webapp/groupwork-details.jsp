@@ -1,3 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -213,136 +216,68 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- END THỐNG KÊ -->
 
                 <!-- BEGIN DANH SÁCH CÔNG VIỆC -->
-                <div class="row">
-                    <div class="col-xs-12">
-                        <a href="#" class="group-title">
-                            <img width="30" src="plugins/images/users/pawandeep.jpg" class="img-circle" />
-                            <span>Pavan kumar</span>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="white-box">
-                            <h3 class="box-title">Chưa thực hiện</h3>
-                            <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:30 AM</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                        <span class="time">9:10 AM</span>
-                                    </div>
+                <div>
+                    <c:forEach items="${jobDetails}" var="jobDetail">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <a href="#" class="group-title">
+                                    <img width="30" src="plugins/images/users/pawandeep.jpg" class="img-circle" />
+                                    <span>${jobDetail.getUserName()}</span>
                                 </a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="white-box">
-                            <h3 class="box-title">Đang thực hiện</h3>
-                            <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:30 AM</span>
+                            <div class="col-md-4">
+                                <div class="white-box">
+                                    <h3 class="box-title">Chưa thực hiện</h3>
+                                    <div class="message-center">
+                                        <c:forEach items="${jobDetail.getTaskEntities()}" var="task">
+                                            <c:if test="${task.getStatusId() == 1}">
+                                                <a href="#">
+                                                    <div class="mail-contnet">
+                                                        <h5>${task.getName()}</h5> <span class="mail-desc">${task.getStartDate()}</span> <span
+                                                            class="time">${task.getEndDate()}</span>
+                                                    </div>
+                                                </a>
+                                            </c:if>
+                                        </c:forEach>
                                     </div>
-                                </a>
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                        <span class="time">9:10 AM</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="white-box">
+                                    <h3 class="box-title">Đang thực hiện</h3>
+                                    <div class="message-center">
+                                        <c:forEach items="${jobDetail.getTaskEntities()}" var="task">
+                                            <c:if test="${task.getStatusId() == 2}">
+                                                <a href="#">
+                                                    <div class="mail-contnet">
+                                                        <h5>${task.getName()}</h5> <span class="mail-desc">${task.getStartDate()}</span> <span
+                                                            class="time">${task.getEndDate()}</span>
+                                                    </div>
+                                                </a>
+                                            </c:if>
+                                        </c:forEach>
                                     </div>
-                                </a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="white-box">
+                                    <h3 class="box-title">Đã hoàn thành</h3>
+                                    <div class="message-center">
+                                        <c:forEach items="${jobDetail.getTaskEntities()}" var="task">
+                                            <c:if test="${task.getStatusId() == 3}">
+                                                <a href="#">
+                                                    <div class="mail-contnet">
+                                                        <h5>${task.getName()}</h5> <span class="mail-desc">${task.getStartDate()}</span> <span
+                                                            class="time">${task.getEndDate()}</span>
+                                                    </div>
+                                                </a>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="white-box">
-                            <h3 class="box-title">Đã hoàn thành</h3>
-                            <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:30 AM</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                        <span class="time">9:10 AM</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <a href="#" class="group-title">
-                            <img width="30" src="plugins/images/users/pawandeep.jpg" class="img-circle" />
-                            <span>Pavan kumar</span>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="white-box">
-                            <h3 class="box-title">Chưa thực hiện</h3>
-                            <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:30 AM</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                        <span class="time">9:10 AM</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="white-box">
-                            <h3 class="box-title">Đang thực hiện</h3>
-                            <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:30 AM</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                        <span class="time">9:10 AM</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="white-box">
-                            <h3 class="box-title">Đã hoàn thành</h3>
-                            <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:30 AM</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                        <span class="time">9:10 AM</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </c:forEach>
                 <!-- END DANH SÁCH CÔNG VIỆC -->
             </div>
             <!-- /.container-fluid -->

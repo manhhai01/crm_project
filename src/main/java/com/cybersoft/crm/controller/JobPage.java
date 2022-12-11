@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "groupwork", urlPatterns = {"/groupwork", "/groupwork-add", "/groupwork-update"})
+@WebServlet(name = "groupwork", urlPatterns = {"/groupwork", "/groupwork-add", "/groupwork-update", "/groupwork-details"})
 public class JobPage extends HttpServlet {
 
     private JobService jobService = new JobService();
@@ -28,6 +28,11 @@ public class JobPage extends HttpServlet {
                 break;
             case "/groupwork-update":
                 req.getRequestDispatcher("/groupwork-update.jsp").forward(req, resp);
+                break;
+            case "/groupwork-details":
+                int id = Integer.parseInt(req.getParameter("id"));
+                req.getSession().setAttribute("jobDetails", jobService.getDetailsByJobId(id));
+                req.getRequestDispatcher("/groupwork-details.jsp").forward(req, resp);
                 break;
         }
     }
